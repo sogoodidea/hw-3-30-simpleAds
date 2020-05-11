@@ -1,0 +1,31 @@
+﻿@model SessionViewModel
+
+<h1 style="text-align: center">Home (Cookies)</h1>
+<br />
+
+@foreach (Post post in Model.Posts)
+{
+    <div class="row">
+        <div class="col-md-6 offset-3 card card-body bg-light">
+            <div class="container">
+                <p>Listed by: @(post.Name != null ? post.Name : "anonymous")</p>
+                <p>Listed on: @post.DateCreated.ToLongDateString()</p>
+                <p>Phone number: @post.PhoneNumber</p>
+                <h3>Details:</h3>
+                <p>@post.Text</p>
+                @foreach (int id in Model.Ids)
+                {
+                    if (id == post.Id)
+                    {
+                        <form method="post" action="/cookies/deletead">
+                            <input type="hidden" name="postId" value="@post.Id" />
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+}
+
